@@ -64,14 +64,15 @@ The following CRUD operations are automated for the Pet endpoint:
 ## 📂 Project Structure
 
 ```
-├── Features/               # Gherkin feature files (BDD scenarios)
+├── Features/              # Gherkin feature files (BDD scenarios)
 ├── StepDefinitions/       # Step implementations
-├── ApiClients/            # REST API interaction layer
+├── Configurations/        # Test settings and configurations
 ├── Models/                # Request/Response models
-├── Helpers/               # Utilities (serialization, validation, etc.)
+├── Utilities/             # Utilities (serialization, validation, etc.)
 ├── Hooks/                 # Test setup and teardown
 └── README.md
 ```
+![Img 639120164697361709](img_639120164697361709.png)
 
 ---
 
@@ -119,14 +120,6 @@ Scenario: Create, Read, Update and Delete a pet
    ```bash
    dotnet test
    ```
-
----
-
-## ⚙️ Configuration
-
-* Base URL is configured within the API client
-* Can be externalised via `appsettings.json` if needed
-
 ---
 
 ## 🧠 Key Highlights
