@@ -1,4 +1,6 @@
-﻿namespace Petstore_Bdd_Tests_Csharp.Support
+﻿using Petstore_Bdd_Tests_Csharp.Utilities;
+
+namespace Petstore_Bdd_Tests_Csharp.Support
 {
     [Binding]
     public class Hooks(IApiClient apiClient)
