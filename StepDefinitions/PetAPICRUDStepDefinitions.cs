@@ -13,12 +13,14 @@ namespace Petstore_Bdd_Tests_Csharp.StepDefinitions
         public async Task WhenICreateANewPetWithTheFollowingDetails(DataTable dataTable)
         {
             var item = dataTable.Rows[0];
+            var photoUrls = item["Photourls"]?.Split(',').Select(url => url.Trim()).ToList() ?? new List<string>();
 
             _petModel = new PetModel
             {
                 Id = long.Parse(item["Id"]),
                 Name = item["Name"],
-                Status = item["Status"]
+                Status = item["Status"],
+                PhotoUrls = photoUrls
             };
 
             await requests.CreatePetAsync(_petModel);
