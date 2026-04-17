@@ -88,6 +88,7 @@ Scenario: Create, Read, Update and Delete a pet
 		| Id  | Name   | Photourls                     | Status    |
 		| 123 | Fluffy | test.jpg, end-to-end test.png | available |
 	Then the pet should be created successfully
+
 	When I retrieve the pet by its ID 123
 	Then the pet should exist
 
