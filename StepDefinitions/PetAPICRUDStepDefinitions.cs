@@ -1,11 +1,11 @@
+using Petstore_Bdd_Tests_Csharp.EndPoints.Pet;
 using Petstore_Bdd_Tests_Csharp.Models;
-using Petstore_Bdd_Tests_Csharp.Support;
 using Shouldly;
 
 namespace Petstore_Bdd_Tests_Csharp.StepDefinitions
 {
     [Binding]
-    public class PetAPICRUDStepDefinitions(IApiClient apiClient, ScenarioContext sc)
+    public class PetAPICRUDStepDefinitions(IRequests requests, ScenarioContext sc)
     {
         private PetModel? _petModel;
 
@@ -21,7 +21,7 @@ namespace Petstore_Bdd_Tests_Csharp.StepDefinitions
                 Status = item["Status"]
             };
 
-            await apiClient.CreatePetAsync(_petModel);
+            await requests.CreatePetAsync(_petModel);
             Thread.Sleep(5000);
         }
 
@@ -35,14 +35,14 @@ namespace Petstore_Bdd_Tests_Csharp.StepDefinitions
 
             long id = (long)_petModel.Id;
 
-            _petModel = await apiClient.GetPetAsync(id);
+            _petModel = await requests.GetPetAsync(id);
             Thread.Sleep(5000);
         }
 
         [When("I retrieve the pet by its ID {int}")]
         public async Task WhenIRetrieveThePetByItsID(int petId)
         {
-            _petModel = await apiClient.GetPetAsync(petId);
+            _petModel = await requests.GetPetAsync(petId);
             Thread.Sleep(5000);
         }
 
@@ -65,7 +65,7 @@ namespace Petstore_Bdd_Tests_Csharp.StepDefinitions
             };
 
             sc.Set(item["Name"], "UpdatedPetName");
-            await apiClient.UpdatePetAsync(_petModel);
+            await requests.UpdatePetAsync(_petModel);
             Thread.Sleep(5000);
         }
 
@@ -75,7 +75,7 @@ namespace Petstore_Bdd_Tests_Csharp.StepDefinitions
             long id = (long)_petModel!.Id!;
 
             var expectedPetName = sc.Get<string>("UpdatedPetName");
-            _petModel = await apiClient.GetPetAsync(id);
+            _petModel = await requests.GetPetAsync(id);
             _petModel.Name.ShouldBe(expectedPetName);
 
             Thread.Sleep(5000);
@@ -84,7 +84,7 @@ namespace Petstore_Bdd_Tests_Csharp.StepDefinitions
         [When("I delete the pet with ID {int}")]
         public async Task WhenIDeleteThePetWithID(int petId)
         {
-            var response = await apiClient.DeletePetAsync(petId);
+            var response = await requests.DeletePetAsync(petId);
             sc.Set(response, "DeleteResponse");
             sc.Set(petId, "DeletedPetId");
             Thread.Sleep(5000);

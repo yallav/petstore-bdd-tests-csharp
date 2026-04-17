@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Petstore_Bdd_Tests_Csharp.Configurations;
-using Petstore_Bdd_Tests_Csharp.Support;
+using Petstore_Bdd_Tests_Csharp.EndPoints.Pet;
+using Petstore_Bdd_Tests_Csharp.Utilities;
 using Reqnroll.Microsoft.Extensions.DependencyInjection;
 
 namespace Petstore_Bdd_Tests_Csharp.Infrastructure
@@ -29,6 +30,11 @@ namespace Petstore_Bdd_Tests_Csharp.Infrastructure
 
             services.AddSingleton(testSettings);
             services.AddScoped<IApiClient, ApiClient>();
+            services.AddScoped<IPostEndPoint, PostEndPoint>();
+            services.AddScoped<IGetEndPoint, GetEndPoint>();
+            services.AddScoped<IUpdateEndPoint, UpdateEndPoint>();
+            services.AddScoped<IDeleteEndPoint, DeleteEndPoint>();
+            services.AddScoped<IRequests, Requests>();
 
             return services;
         }
